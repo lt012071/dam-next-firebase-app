@@ -23,7 +23,6 @@ src/
     assets/[id].tsx... アセット詳細ページ
     version-history.tsx ... バージョン履歴
     dashboard.tsx  ... ダッシュボード
-    api/           ... APIエンドポイント
   components/      ... UIコンポーネント
   lib/             ... Firebase/リポジトリ層
   types/           ... 型定義
