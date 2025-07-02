@@ -12,8 +12,6 @@
   "dependencies": {
     "@vercel/next": "^4.9.2",
     "firebase": "^11.10.0",
-    "firebase-admin": "^13.4.0",
-    "firebase-functions": "^6.3.2",
     "next": "15.3.4",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
