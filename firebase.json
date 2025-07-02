@@ -12,6 +12,7 @@
     "rewrites": [
       { "source": "/upload", "destination": "/upload.html" },
       { "source": "/assets", "destination": "/assets.html" },
+      { "source": "/assets/:id", "destination": "/assets/[id].html" },
       { "source": "/dashboard", "destination": "/dashboard.html" },
       { "source": "/version-history", "destination": "/version-history.html" },
       { "source": "/login", "destination": "/login.html" },
