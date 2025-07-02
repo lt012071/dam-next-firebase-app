@@ -5,10 +5,10 @@ import { fetchAssetById, deleteAsset, deleteAssetFile, updateAsset, uploadAssetF
 import { Asset } from "@/types/asset";
 import { createVersion, fetchVersionById } from "@/lib/versionRepository";
 import { Version } from "@/types/version";
-import { useSession } from "next-auth/react";
 import { fetchComments, addComment, deleteComment } from "@/lib/commentRepository";
 import { Comment } from "@/types/comment";
 import Image from "next/image";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function AssetDetail() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function AssetDetail() {
   const [editMode, setEditMode] = useState(false);
   const [editValues, setEditValues] = useState<Partial<Asset>>({});
   const [saving, setSaving] = useState(false);
-  const { data: session } = useSession();
+  const { user } = useAuth();
   const [replacing, setReplacing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -124,7 +124,7 @@ export default function AssetDetail() {
         fileType: fileResult.type,
         fileSize: fileResult.size,
         updatedAt: now,
-        updatedBy: session?.user?.name || "anonymous",
+        updatedBy: user?.displayName || user?.email || "anonymous",
       };
       const newVersionId = await createVersion(newVersion);
       // assetsのlatestVersionIdを更新
@@ -142,12 +142,12 @@ export default function AssetDetail() {
   };
 
   const handleAddComment = async () => {
-    if (!id || !commentInput.trim() || !session?.user?.name) return;
+    if (!id || !commentInput.trim() || !user?.displayName) return;
     setCommentLoading(true);
     const now = new Date().toISOString();
     await addComment({
       assetId: id as string,
-      user: session.user.name,
+      user: user.displayName || user.email || "anonymous",
       text: commentInput.trim(),
       createdAt: now,
     });
@@ -224,7 +224,7 @@ export default function AssetDetail() {
                   <div className={styles.commentHeader}>
                     <span className={styles.commentUser}>{c.user}</span>
                     <span className={styles.commentDate}>{c.createdAt.slice(0, 10)}</span>
-                    {session?.user?.name === c.user && (
+                    {user?.displayName === c.user && (
                       <button className={styles.commentDeleteBtn} onClick={() => handleDeleteComment(c.id)}>削除</button>
                     )}
                   </div>

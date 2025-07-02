@@ -2,8 +2,8 @@ import React, { ReactNode } from "react";
 import styles from "@/styles/Layout.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface LayoutProps {
   children: ReactNode;
@@ -65,7 +65,7 @@ export default function Layout({ children }: LayoutProps) {
 
 // ヘッダー右側のアカウントメニュー
 function AccountMenu() {
-  const { data: session, status } = useSession();
+  const { user, loading, signInWithGoogle, signOut } = useAuth();
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -81,8 +81,8 @@ function AccountMenu() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
-  if (status === "loading") return null;
-  if (session?.user) {
+  if (loading) return null;
+  if (user) {
     return (
       <div ref={menuRef} style={{ position: "relative", marginLeft: 24 }}>
         <button
@@ -97,10 +97,10 @@ function AccountMenu() {
             padding: 0,
           }}
         >
-          {session.user.image && (
-            <Image src={session.user.image} alt="user icon" width={32} height={32} style={{ borderRadius: "50%" }} />
+          {user.photoURL && (
+            <Image src={user.photoURL} alt="user icon" width={32} height={32} style={{ borderRadius: "50%" }} />
           )}
-          <span style={{ fontWeight: 500 }}>{session.user.name || session.user.email}</span>
+          <span style={{ fontWeight: 500 }}>{user.displayName || user.email}</span>
         </button>
         {open && (
           <div
@@ -118,7 +118,7 @@ function AccountMenu() {
             }}
           >
             <button
-              onClick={() => { setOpen(false); signOut({ callbackUrl: '/api/auth/signin' }); }}
+              onClick={() => { setOpen(false); signOut(); }}
               style={{
                 width: "100%",
                 background: "none",
@@ -136,7 +136,7 @@ function AccountMenu() {
   } else {
     return (
       <button
-        onClick={() => signIn(undefined, { callbackUrl: '/' })}
+        onClick={() => signInWithGoogle()}
         style={{
           marginLeft: 24,
           background: "none",

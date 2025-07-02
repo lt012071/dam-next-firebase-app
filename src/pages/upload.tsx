@@ -1,13 +1,13 @@
 import styles from "@/styles/UploadPage.module.css";
 import { useRef, useState } from "react";
 import { uploadAssetFile, createAsset, updateAsset } from "@/lib/assetRepository";
-import { useSession } from "next-auth/react";
 import { createVersion, updateVersion } from "@/lib/versionRepository";
 import { getAuth } from "firebase/auth";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Upload() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { data: session } = useSession();
+  const { user } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -48,7 +48,7 @@ export default function Upload() {
         description,
         category,
         tags: tags.split(",").map(t => t.trim()).filter(Boolean),
-        uploader: session?.user?.name || "anonymous",
+        uploader: user?.displayName || user?.email || "anonymous",
         uploadedAt: now,
         updatedAt: now,
         visibility,
@@ -63,7 +63,7 @@ export default function Upload() {
         fileType: fileResult.type,
         fileSize: fileResult.size,
         updatedAt: now,
-        updatedBy: session?.user?.name || "anonymous",
+        updatedBy: user?.displayName || user?.email || "anonymous",
       };
       const versionId = await createVersion(versionData);
       await updateVersion(versionId, { assetId });
