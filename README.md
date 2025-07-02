@@ -20,9 +20,9 @@ src/
     login.tsx      ... ログインページ
     upload.tsx     ... アセットアップロード
     assets.tsx     ... アセット一覧・検索
+    assets/[id].tsx ... アセット詳細ページ
     version-history.tsx ... バージョン履歴
     dashboard.tsx  ... ダッシュボード
-    api/           ... APIエンドポイント
   components/      ... UIコンポーネント
   lib/             ... Firebase/リポジトリ層
   types/           ... 型定義
@@ -84,6 +84,9 @@ npm run dev
 
 - `/assets`  
   アセットの一覧表示・検索・フィルタリングが可能です。各アセットをクリックすると詳細・バージョン履歴へ遷移します。
+
+- `/assets/[id]`  
+アセットの詳細情報・編集・削除・バージョン差し替えが可能です。
 
 - `/version-history?assetId=xxx`  
   アセットのバージョン履歴を表示し、過去バージョンのプレビューや復元ができます。
