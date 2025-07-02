@@ -9,6 +9,7 @@ import { fetchComments, addComment, deleteComment } from "@/lib/commentRepositor
 import { Comment } from "@/types/comment";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
+import { fetchVersions } from "@/lib/versionRepository";
 
 export default function AssetDetail() {
   const router = useRouter();
@@ -109,11 +110,8 @@ export default function AssetDetail() {
       // バージョン番号を決定（既存バージョン数+1）
       let versionNum = 2;
       try {
-        const res = await fetch(`/api/asset-versions?assetId=${asset.id}`);
-        if (res.ok) {
-          const data = await res.json();
-          versionNum = (data.count || 1) + 1;
-        }
+        const versions = await fetchVersions(asset.id);
+        versionNum = (versions.length || 1) + 1;
       } catch {}
       // バージョン履歴を追加
       const newVersion = {
