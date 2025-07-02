@@ -1,0 +1,130 @@
+.headerRow {
+  margin-bottom: var(--spacing-lg);
+}
+.title {
+  font-size: var(--font-size-large);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+.uploadArea {
+  display: flex;
+  gap: var(--spacing-xl);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.dropZone {
+  flex: 1 1 320px;
+  min-width: 320px;
+  max-width: 480px;
+  height: 320px;
+  background: var(--color-gray);
+  border: 2px dashed var(--color-border-strong);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  position: relative;
+  margin-bottom: var(--spacing-lg);
+}
+.dropText {
+  font-size: var(--font-size-medium);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+}
+.browseText {
+  font-size: var(--font-size-small);
+  color: var(--color-secondary);
+  text-align: center;
+}
+.fileInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.metaSection {
+  flex: 2 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background: var(--color-surface);
+  border-radius: 8px;
+  padding: var(--spacing-lg);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.metaField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.metaFieldRow {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-end;
+}
+.metaLabel {
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+.metaInput {
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: var(--font-size-normal);
+  background: var(--color-surface);
+  outline: none;
+  resize: vertical;
+}
+.visibilityRow {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+.radioLabel {
+  font-size: var(--font-size-normal);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+.uploadBtn {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: var(--font-size-normal);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.uploadBtn:hover {
+  background: var(--color-secondary);
+}
+@media (max-width: 900px) {
+  .uploadArea {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  .metaSection {
+    padding: var(--spacing-md);
+  }
+}
+@media (max-width: 600px) {
+  .metaSection {
+    padding: var(--spacing-sm);
+  }
+  .dropZone {
+    min-width: 0;
+    max-width: 100%;
+    height: 180px;
+  }
+} 

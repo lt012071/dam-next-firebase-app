@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const { data: session } = useSession();
   return (
     <>
       <Head>
@@ -111,6 +113,14 @@ export default function Home() {
             Go to nextjs.org →
           </a>
         </footer>
+        <div style={{ position: "absolute", top: 20, right: 20 }}>
+          {session ? (
+            <>
+            </>
+          ) : (
+            <button onClick={() => signIn("google", { callbackUrl: '/' })}>Googleでログイン</button>
+          )}
+        </div>
       </div>
     </>
   );

@@ -1,0 +1,111 @@
+.loginRoot {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+}
+.loginBox {
+  background: var(--color-background);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  padding: 48px 40px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-lg);
+}
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.label {
+  font-size: var(--font-size-small);
+  color: var(--color-secondary);
+  font-weight: 700;
+}
+.input {
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: var(--font-size-normal);
+  background: var(--color-surface);
+  outline: none;
+}
+.optionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-small);
+}
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-primary);
+}
+.forgot {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+.loginBtn {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-size: var(--font-size-normal);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.loginBtn:hover {
+  background: var(--color-secondary);
+}
+.divider {
+  text-align: center;
+  color: var(--color-gray-dark);
+  font-size: var(--font-size-small);
+  margin: var(--spacing-sm) 0;
+}
+.googleBtn {
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: var(--font-size-normal);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+.googleBtn:hover {
+  background: var(--color-gray);
+  color: var(--color-accent);
+}
+@media (max-width: 600px) {
+  .loginBox {
+    padding: 24px 8px;
+    max-width: 100%;
+  }
+} 
