@@ -20,7 +20,7 @@ src/
     login.tsx      ... ログインページ
     upload.tsx     ... アセットアップロード
     assets.tsx     ... アセット一覧・検索
-    assets/[id].tsx... アセット詳細ページ
+    assets/[id].tsx ... アセット詳細ページ
     version-history.tsx ... バージョン履歴
     dashboard.tsx  ... ダッシュボード
   components/      ... UIコンポーネント
