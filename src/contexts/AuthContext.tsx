@@ -30,7 +30,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    const email = result.user.email;
+    const allowed = (process.env.NEXT_PUBLIC_ALLOWED_EMAIL || "").split(",").map(e => e.trim());
+    if (!email || !allowed.includes(email)) {
+      await firebaseSignOut(auth);
+      window.alert("このメールアドレスではログインできません。管理者にお問い合わせください。");
+      return;
+    }
   };
 
   const signOut = async () => {
