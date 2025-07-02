@@ -1,9 +1,9 @@
-import Layout from "@/components/Layout";
 import styles from "@/styles/VersionHistoryPage.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { fetchVersions, revertVersion } from "@/lib/versionRepository";
 import { Version } from "@/types/version";
+import Image from "next/image";
 
 export default function VersionHistory() {
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function VersionHistory() {
       // 最新のバージョン履歴を再取得
       const updated = await fetchVersions(assetId);
       setVersions(updated);
-    } catch (e) {
+    } catch {
       alert('復元に失敗しました');
     }
     setRevertingId(null);
@@ -69,7 +69,7 @@ export default function VersionHistory() {
               </tr>
             </thead>
             <tbody>
-              {versions.map((v, i) => (
+              {versions.map(v => (
                 <tr key={v.id}>
                   <td>{`Version ${v.version}`}</td>
                   <td>{v.updatedAt}</td>
@@ -90,10 +90,10 @@ export default function VersionHistory() {
       {/* プレビューモーダル */}
       {previewUrl && (
         <div className={styles.previewModalOverlay} onClick={closePreview}>
-          <div className={styles.previewModal} onClick={e => e.stopPropagation()}>
+          <div className={styles.previewModal} onClick={event => event.stopPropagation()}>
             <button className={styles.closeBtn} onClick={closePreview}>×</button>
             {previewType?.startsWith('image') ? (
-              <img src={previewUrl ?? ''} alt="preview" className={styles.previewImg} />
+              <Image src={previewUrl ?? ''} alt="preview" className={styles.previewImg} width={400} height={300} />
             ) : previewType?.startsWith('video') ? (
               <video src={previewUrl ?? ''} controls className={styles.previewVideo} />
             ) : previewType?.includes('pdf') ? (

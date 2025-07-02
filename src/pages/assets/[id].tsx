@@ -1,4 +1,3 @@
-import Layout from "@/components/Layout";
 import styles from "@/styles/AssetDetailPage.module.css";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
@@ -9,6 +8,7 @@ import { Version } from "@/types/version";
 import { useSession } from "next-auth/react";
 import { fetchComments, addComment, deleteComment } from "@/lib/commentRepository";
 import { Comment } from "@/types/comment";
+import Image from "next/image";
 
 export default function AssetDetail() {
   const router = useRouter();
@@ -62,10 +62,8 @@ export default function AssetDetail() {
       await deleteAsset(asset.id!);
       alert("削除しました");
       router.push("/assets");
-    } catch (e) {
-      alert("削除に失敗しました");
-      setDeleting(false);
-    }
+    } catch {}
+    setDeleting(false);
   };
 
   const openEdit = () => {
@@ -96,9 +94,7 @@ export default function AssetDetail() {
       // 最新データを再取得
       const updated = await fetchAssetById(asset.id);
       setAsset(updated);
-    } catch (e) {
-      alert('保存に失敗しました');
-    }
+    } catch {}
     setSaving(false);
   };
 
@@ -140,9 +136,7 @@ export default function AssetDetail() {
       const updated = await fetchAssetById(asset.id);
       setAsset(updated);
       alert("ファイルを差し替えました");
-    } catch (e) {
-      alert("差し替えに失敗しました");
-    }
+    } catch {}
     setReplacing(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -189,7 +183,7 @@ export default function AssetDetail() {
               {!latestVersion ? (
                 <div className={styles.assetPreviewNo}>Loading...</div>
               ) : latestVersion.fileType?.startsWith('image') ? (
-                <img src={latestVersion.fileUrl} alt={asset.title} className={styles.assetPreviewImg} />
+                <Image src={latestVersion.fileUrl} alt={asset.title} className={styles.assetPreviewImg} width={400} height={300} />
               ) : latestVersion.fileType?.startsWith('video') ? (
                 <video src={latestVersion.fileUrl} controls className={styles.assetPreviewVideo} />
               ) : latestVersion.fileType?.includes('pdf') ? (

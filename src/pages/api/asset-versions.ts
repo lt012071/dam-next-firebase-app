@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const versions = await fetchVersions(assetId);
     res.status(200).json({ count: versions.length });
-  } catch (e) {
+  } catch {
     res.status(500).json({ error: "Failed to fetch versions" });
   }
 } 

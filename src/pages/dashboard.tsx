@@ -10,7 +10,7 @@ export default function Dashboard() {
   useEffect(() => {
     fetchAssets().then(data => {
       setAssets(data);
-      setTotalSize(data.reduce((sum, a) => sum + (a.fileSize || 0), 0));
+      setTotalSize(data.reduce((sum, a) => sum + (Number(a.fileSize) || 0), 0));
     });
   }, []);
 

@@ -9,5 +9,5 @@ export interface Asset {
   updatedAt: string;
   visibility: 'public' | 'private';
   latestVersionId?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 } 

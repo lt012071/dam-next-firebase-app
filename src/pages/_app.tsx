@@ -7,6 +7,12 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { getAuth, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
 import { app } from '@/firebase';
+import { Session } from 'next-auth';
+
+// idTokenを含む独自型を定義
+interface CustomSession extends Session {
+  idToken?: string;
+}
 
 export default function App({ Component, pageProps }: AppProps) {
   function AuthGuard({ children }: { children: React.ReactNode }) {
@@ -23,8 +29,8 @@ export default function App({ Component, pageProps }: AppProps) {
   function AuthSync() {
     const { data: session } = useSession();
     useEffect(() => {
-      if (session && (session as any).idToken) {
-        const idToken = (session as any).idToken;
+      if (session && (session as CustomSession).idToken) {
+        const idToken = (session as CustomSession).idToken;
         const auth = getAuth(app);
         const credential = GoogleAuthProvider.credential(idToken);
         signInWithCredential(auth, credential)

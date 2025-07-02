@@ -5,15 +5,12 @@ import {
   doc,
   getDoc,
   getDocs,
-  addDoc,
   updateDoc,
-  deleteDoc,
+  where,
   query,
   orderBy,
-  where,
-  Timestamp,
-  limit as fsLimit,
-  startAfter,
+  limit,
+  addDoc
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
@@ -42,7 +39,7 @@ export async function fetchAssets(filter?: AssetFilter): Promise<Asset[]> {
       q = query(collection(db, ASSET_COLLECTION), ...conds, orderBy('uploadedAt', 'desc'));
     }
     if (filter.pageSize) {
-      q = query(q, fsLimit(filter.pageSize));
+      q = query(q, limit(filter.pageSize));
     }
   } else {
     q = query(collection(db, ASSET_COLLECTION), where('isDeleted', '!=', true), orderBy('uploadedAt', 'desc'));

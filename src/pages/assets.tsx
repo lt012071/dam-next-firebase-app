@@ -1,8 +1,9 @@
 import styles from "@/styles/AssetsPage.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { fetchAssets, AssetFilter } from "@/lib/assetRepository";
 import { Asset } from "@/types/asset";
 import { fetchVersionById } from "@/lib/versionRepository";
+import Image from "next/image";
 
 export default function Assets() {
   const [assets, setAssets] = useState<Asset[]>([]);
@@ -13,10 +14,10 @@ export default function Assets() {
   const [uploadedAt, setUploadedAt] = useState("");
   const [title, setTitle] = useState("");
   const [page, setPage] = useState(1);
-  const [versionMap, setVersionMap] = useState<Record<string, any>>({});
+  const [versionMap, setVersionMap] = useState<Record<string, { fileUrl: string; fileType: string; fileName: string }>>({});
   const pageSize = 12;
 
-  const fetchWithFilter = async (filter: AssetFilter) => {
+  const fetchWithFilter = useCallback(async (filter: AssetFilter) => {
     setLoading(true);
     const data = await fetchAssets({ ...filter, page, pageSize });
     setAssets(data);
@@ -32,25 +33,21 @@ export default function Assets() {
     );
     setVersionMap(Object.fromEntries(versionResults));
     setLoading(false);
-  };
+  }, [page, pageSize]);
 
   useEffect(() => {
-    fetchWithFilter({});
-  }, [page]);
+    fetchWithFilter({
+      fileType,
+      category,
+      tags: tags ? tags.split(",").map(t => t.trim()).filter(Boolean) : undefined,
+      uploadedAt,
+      title
+    });
+  }, [fetchWithFilter, fileType, category, tags, uploadedAt, title, page]);
 
   useEffect(() => {
     setPage(1);
   }, [fileType, category, tags, uploadedAt, title]);
-
-  useEffect(() => {
-    fetchWithFilter({
-      fileType: fileType || undefined,
-      category: category || undefined,
-      tags: tags ? tags.split(",").map(t => t.trim()).filter(Boolean) : undefined,
-      uploadedAt: uploadedAt || undefined,
-      title: title || undefined,
-    });
-  }, [fileType, category, tags, uploadedAt, title, page]);
 
   return (
     <>
@@ -96,7 +93,7 @@ export default function Assets() {
                   {!version ? (
                     <div style={{ color: '#aaa', fontSize: 12, textAlign: 'center', lineHeight: '64px' }}>Loading...</div>
                   ) : version.fileType?.startsWith('image') ? (
-                    <img src={version.fileUrl} alt={asset.title} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                    <Image src={version.fileUrl} alt={asset.title} width={400} height={300} style={{ objectFit: 'cover', borderRadius: 8 }} />
                   ) : version.fileType?.startsWith('video') ? (
                     <video src={version.fileUrl} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
                   ) : version.fileType?.includes('pdf') ? (

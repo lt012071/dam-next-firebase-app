@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 import styles from "@/styles/Layout.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
 
