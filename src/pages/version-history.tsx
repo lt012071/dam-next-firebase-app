@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/VersionHistoryPage.module.css";
 import { useRouter } from "next/router";
 import { fetchVersions, revertVersion } from "@/lib/versionRepository";
