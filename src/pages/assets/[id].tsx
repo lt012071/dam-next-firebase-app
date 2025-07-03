@@ -1,15 +1,14 @@
+import React, { useEffect, useState, useRef } from "react";
 import styles from "@/styles/AssetDetailPage.module.css";
 import { useRouter } from "next/router";
-import { useEffect, useState, useRef } from "react";
 import { fetchAssetById, deleteAsset, deleteAssetFile, updateAsset, uploadAssetFile } from "@/lib/assetRepository";
 import { Asset } from "@/types/asset";
-import { createVersion, fetchVersionById } from "@/lib/versionRepository";
+import { createVersion, fetchVersionById, fetchVersions } from "@/lib/versionRepository";
 import { Version } from "@/types/version";
 import { addComment, deleteComment, subscribeComments } from "@/lib/commentRepository";
 import { Comment } from "@/types/comment";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
-import { fetchVersions } from "@/lib/versionRepository";
 
 export default function AssetDetail() {
   const router = useRouter();

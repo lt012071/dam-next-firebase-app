@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
+import React, { ReactNode, useState, useRef, useEffect } from "react";
 import styles from "@/styles/Layout.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface LayoutProps {
