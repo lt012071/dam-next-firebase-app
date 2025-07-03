@@ -2,7 +2,6 @@ import styles from "@/styles/UploadPage.module.css";
 import { useRef, useState } from "react";
 import { uploadAssetFile, createAsset, updateAsset } from "@/lib/assetRepository";
 import { createVersion, updateVersion } from "@/lib/versionRepository";
-import { getAuth } from "firebase/auth";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Upload() {
