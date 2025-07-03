@@ -2,7 +2,6 @@ import styles from "@/styles/UploadPage.module.css";
 import { useRef, useState } from "react";
 import { uploadAssetFile, createAsset, updateAsset } from "@/lib/assetRepository";
 import { createVersion, updateVersion } from "@/lib/versionRepository";
-import { getAuth } from "firebase/auth";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Upload() {
@@ -32,8 +31,6 @@ export default function Upload() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const auth = getAuth();
-    console.log("Firebase Auth currentUser:", auth.currentUser);
     if (!file || !title || !category) {
       setMessage("ファイル・タイトル・カテゴリは必須です");
       return;
