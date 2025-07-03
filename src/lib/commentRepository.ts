@@ -9,6 +9,7 @@ import {
   query,
   orderBy,
   where,
+  onSnapshot,
 } from 'firebase/firestore';
 
 const COMMENT_COLLECTION = 'comments';
@@ -27,4 +28,17 @@ export async function addComment(comment: Omit<Comment, 'id'>): Promise<string> 
 export async function deleteComment(id: string) {
   const docRef = doc(db, COMMENT_COLLECTION, id);
   await deleteDoc(docRef);
+}
+
+// コメントのリアルタイム購読
+export function subscribeComments(assetId: string, callback: (comments: Comment[]) => void) {
+  const q = query(
+    collection(db, COMMENT_COLLECTION),
+    where('assetId', '==', assetId),
+    orderBy('createdAt', 'asc')
+  );
+  return onSnapshot(q, (snapshot) => {
+    const comments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Comment));
+    callback(comments);
+  });
 } 
