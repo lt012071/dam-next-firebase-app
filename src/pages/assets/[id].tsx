@@ -5,7 +5,7 @@ import { fetchAssetById, deleteAsset, deleteAssetFile, updateAsset, uploadAssetF
 import { Asset } from "@/types/asset";
 import { createVersion, fetchVersionById } from "@/lib/versionRepository";
 import { Version } from "@/types/version";
-import { fetchComments, addComment, deleteComment } from "@/lib/commentRepository";
+import { addComment, deleteComment, subscribeComments } from "@/lib/commentRepository";
 import { Comment } from "@/types/comment";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
@@ -37,7 +37,9 @@ export default function AssetDetail() {
           fetchVersionById(data.latestVersionId).then(setLatestVersion);
         }
       });
-      fetchComments(id).then(setComments);
+      // コメントのリアルタイム購読
+      const unsubscribe = subscribeComments(id, setComments);
+      return () => unsubscribe();
     }
   }, [id]);
 
@@ -150,18 +152,13 @@ export default function AssetDetail() {
       createdAt: now,
     });
     setCommentInput("");
-    const updated = await fetchComments(id as string);
-    setComments(updated);
     setCommentLoading(false);
   };
 
   const handleDeleteComment = async (commentId: string) => {
     if (!window.confirm("このコメントを削除しますか？")) return;
     await deleteComment(commentId);
-    if (id) {
-      const updated = await fetchComments(id as string);
-      setComments(updated);
-    }
+    // コメントはonSnapshotで自動更新されるので再取得不要
   };
 
   return (
