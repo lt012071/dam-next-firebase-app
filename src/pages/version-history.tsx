@@ -1,5 +1,5 @@
 import styles from "@/styles/VersionHistoryPage.module.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { fetchVersions, revertVersion } from "@/lib/versionRepository";
 import { Version } from "@/types/version";
