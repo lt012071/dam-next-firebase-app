@@ -19,7 +19,7 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const isLoginPage = router.pathname === "/login" || router.pathname === "/login-test";
+  const isLoginPage = router.pathname === "/login";
   return (
     <AuthProvider>
       {isLoginPage ? (
