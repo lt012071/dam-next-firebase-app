@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "@/styles/LoginPage.module.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/firebase";
@@ -10,11 +10,13 @@ export default function LoginTest() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  // 本番環境では404
-  if (process.env.NODE_ENV === "production") {
-    if (typeof window !== "undefined") {
-      if (router) router.replace("/404");
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production" && !process.env.CI) {
+      router.replace("/404");
     }
+  }, [router]);
+
+  if (process.env.NODE_ENV === "production" && !process.env.CI) {
     return null;
   }
 
