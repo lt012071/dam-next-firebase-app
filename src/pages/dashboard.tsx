@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/DashboardPage.module.css";
-import { useEffect, useState } from "react";
 import { fetchAssets } from "@/lib/assetRepository";
 import { Asset } from "@/types/asset";
 

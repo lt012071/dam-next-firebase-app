@@ -1,7 +1,7 @@
+import React, { useEffect } from "react";
 import styles from "@/styles/LoginPage.module.css";
 import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function Login() {
