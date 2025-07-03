@@ -10,6 +10,7 @@ async function globalSetup(config: FullConfig) {
   const browser = await chromium.launch();
   const page = await browser.newPage();
   await page.goto('http://localhost:3000/login-test');
+  await page.waitForSelector('input[aria-label="メールアドレス"]', { timeout: 60000 });
   await page.getByLabel('メールアドレス').fill(process.env.E2E_TEST_EMAIL!);
   await page.getByLabel('パスワード').fill(process.env.E2E_TEST_PASSWORD!);
   await Promise.all([
