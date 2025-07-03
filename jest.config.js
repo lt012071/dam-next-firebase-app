@@ -13,4 +13,7 @@ module.exports = {
   transformIgnorePatterns: [
     '/node_modules/'
   ],
+  testPathIgnorePatterns: [
+    '<rootDir>/e2e/'
+  ],
 };

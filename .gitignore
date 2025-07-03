@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Playwright storage state
+auth.json
+
+# Playwright test results
+test-results/
