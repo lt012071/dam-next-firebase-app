@@ -22,5 +22,21 @@ async function globalSetup(config: FullConfig) {
   ]);
   await page.context().storageState({ path: 'auth.json' });
   await browser.close();
+
+  // 環境変数の有無をログ出力
+  console.log('E2E_TEST_EMAIL:', process.env.E2E_TEST_EMAIL ? '[set]' : '[not set]');
+  console.log('E2E_TEST_PASSWORD:', process.env.E2E_TEST_PASSWORD ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_FIREBASE_API_KEY:', process.env.NEXT_PUBLIC_FIREBASE_API_KEY ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN:', process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_FIREBASE_PROJECT_ID:', process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET:', process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID:', process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_FIREBASE_APP_ID:', process.env.NEXT_PUBLIC_FIREBASE_APP_ID ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID:', process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ? '[set]' : '[not set]');
+  console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL ? '[set]' : '[not set]');
+  console.log('NEXTAUTH_SECRET:', process.env.NEXTAUTH_SECRET ? '[set]' : '[not set]');
+  console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID ? '[set]' : '[not set]');
+  console.log('GOOGLE_CLIENT_SECRET:', process.env.GOOGLE_CLIENT_SECRET ? '[set]' : '[not set]');
+  console.log('NEXT_PUBLIC_ALLOWED_EMAIL:', process.env.NEXT_PUBLIC_ALLOWED_EMAIL ? '[set]' : '[not set]');
 }
 export default globalSetup; 
