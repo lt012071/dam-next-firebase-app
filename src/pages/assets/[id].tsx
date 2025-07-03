@@ -5,7 +5,7 @@ import { fetchAssetById, deleteAsset, deleteAssetFile, updateAsset, uploadAssetF
 import { Asset } from "@/types/asset";
 import { createVersion, fetchVersionById } from "@/lib/versionRepository";
 import { Version } from "@/types/version";
-import { fetchComments, addComment, deleteComment, subscribeComments } from "@/lib/commentRepository";
+import { addComment, deleteComment, subscribeComments } from "@/lib/commentRepository";
 import { Comment } from "@/types/comment";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
