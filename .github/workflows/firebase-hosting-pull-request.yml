@@ -43,7 +43,11 @@ jobs:
           NEXT_PUBLIC_ALLOWED_EMAIL: ${{ vars.NEXT_PUBLIC_ALLOWED_EMAIL }}
           E2E_TEST_EMAIL: ${{ secrets.E2E_TEST_EMAIL }}
           E2E_TEST_PASSWORD: ${{ secrets.E2E_TEST_PASSWORD }}
+      - run: npx playwright install --with-deps
       - run: npm run test:e2e
+        env:
+          E2E_TEST_EMAIL: ${{ secrets.E2E_TEST_EMAIL }}
+          E2E_TEST_PASSWORD: ${{ secrets.E2E_TEST_PASSWORD }}
 
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
