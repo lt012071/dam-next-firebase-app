@@ -29,7 +29,7 @@ export interface AssetFilter {
 export async function fetchAssets(filter?: AssetFilter): Promise<Asset[]> {
   let q = query(collection(db, ASSET_COLLECTION), orderBy('uploadedAt', 'desc'));
   if (filter) {
-    const conds = [];
+    const conds: import('firebase/firestore').QueryConstraint[] = [];
     if (filter.fileType) conds.push(where('fileType', '==', filter.fileType));
     if (filter.category) conds.push(where('category', '==', filter.category));
     if (filter.tags && filter.tags.length > 0) conds.push(where('tags', 'array-contains-any', filter.tags));
